@@ -32,19 +32,49 @@ See [PLAN.md](PLAN.md) for the complete roadmap.
 # 1. Install dependencies
 pip install -r src/requirements.txt
 
-# 2. Set your API key
+# 2. Install development tools (optional)
+pip install -r requirements-dev.txt
+
+# 3. Set your API key
 export GITHUB_TOKEN="your_github_token_here"
 # OR
 export OPENAI_API_KEY="your_openai_api_key_here"
 
-# 3. Run the quick start guide
+# 4. Run the quick start guide
 python quickstart.py
 
-# 4. Generate tests from descriptions
+# 5. Generate tests from descriptions
 python -m src.test_generator.cli \
   -i examples/test_descriptions.txt \
   -o output/test_generated.py
 ```
+
+---
+
+## Development
+
+### Code Quality
+
+This project uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting.
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run linter and formatter
+python lint.py
+
+# Or use ruff directly
+ruff check src/ examples/ --fix
+ruff format src/ examples/
+```
+
+The linter runs:
+- **Linting**: Checks for code quality issues (pycodestyle, pyflakes, etc.)
+- **Formatting**: Auto-formats code to consistent style
+- **Import sorting**: Organizes imports automatically
+
+Configuration is in `pyproject.toml`.
 
 ---
 
