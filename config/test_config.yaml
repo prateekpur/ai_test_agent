@@ -1,0 +1,7 @@
+web:
+  test_dir: "examples/web_tests"
+  browser: "chromium"
+  headed: false
+  workers: null
+  verbose: true
+  timeout: 300

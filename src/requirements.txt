@@ -2,6 +2,7 @@ selenium
 webdriver-manager
 pytest
 pytest-xdist
+pytest-playwright
 allure-pytest
 spacy
 pyyaml
