@@ -1,0 +1,11 @@
+## user login validation
+
+Test that user login works correctly with valid credentials.
+Should reject invalid usernames and passwords.
+Should handle empty inputs gracefully.
+
+## password strength checker
+
+Test password strength validation function.
+Passwords must have at least 8 characters, one uppercase, one number.
+Weak passwords should be rejected with appropriate error messages.

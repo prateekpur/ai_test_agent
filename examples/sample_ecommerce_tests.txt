@@ -1,0 +1,49 @@
+## user registration
+
+Test user registration with valid email and password.
+Should create a new user account and return success message.
+Should reject duplicate emails with appropriate error.
+Should validate email format before creating account.
+
+## email validation
+
+Test email validation function.
+Should accept valid email formats like user@example.com.
+Should reject emails without @ symbol.
+Should reject emails without domain extension.
+Should reject emails with spaces or special characters.
+
+## password strength validation
+
+Test password meets security requirements.
+Must be at least 8 characters long.
+Must contain at least one uppercase letter.
+Must contain at least one lowercase letter.
+Must contain at least one number.
+Should reject passwords that don't meet all criteria.
+
+## user login
+
+Test user login with correct credentials.
+Should authenticate user with valid email and password.
+Should reject login with incorrect password.
+Should reject login with non-existent email.
+Should handle case-insensitive email matching.
+
+## shopping cart operations
+
+Test adding items to shopping cart.
+Should add product with quantity to cart.
+Should update quantity if product already exists in cart.
+Should calculate total price correctly.
+Should remove items from cart when quantity is zero.
+Should prevent negative quantities.
+
+## order checkout
+
+Test checkout process with valid cart.
+Should create order from cart items.
+Should validate payment information.
+Should clear cart after successful order.
+Should handle insufficient inventory gracefully.
+Should calculate shipping costs based on items.
