@@ -1,33 +1,9 @@
-## user registration
+## user sign-in
 
-Test the register_user(email: str, password: str) -> dict function.
-
-The function is located in: src/auth/registration.py
-It returns: {"success": bool, "message": str, "user_id": int | None}
+Test the login feature.
+Test page - https://www.saucedemo.com/cart.html
 
 Test cases:
-- Valid email and password should create account and return success=True
-- Duplicate email should return success=False with error message
-- Invalid email format should return success=False
-- Password under 8 chars should return success=False
+- User with Valid email and password should be able to sign in
+- User with Invalid email format should not be able to sign in
 
-Example usage:
-```python
-from src.auth.registration import register_user
-
-result = register_user("test@example.com", "Password123")
-# result = {"success": True, "message": "Account created", "user_id": 1}
-```
-
-## email validation  
-
-Test the validate_email(email: str) -> bool function.
-
-The function is located in: src/utils/validators.py
-It returns: True if email is valid, False otherwise
-
-Test cases:
-- "user@example.com" should return True
-- "invalid.email" (no @) should return False  
-- "user@domain" (no extension) should return False
-- "user @example.com" (has space) should return False
