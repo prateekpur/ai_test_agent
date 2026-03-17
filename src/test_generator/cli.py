@@ -1,8 +1,13 @@
 import argparse
 import sys
 
+from dotenv import load_dotenv
+
 from .generator import TestGenerator
 from .llm_client import LLMClient
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def main():
