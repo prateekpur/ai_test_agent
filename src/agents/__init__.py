@@ -1,6 +1,7 @@
 """Agent modules for test planning, generation, analysis, and fixing."""
 
 from .critic import analyze_test_results, print_analysis
+from .fixer import fix_tests
 from .generator import generate_multiple_tests, generate_test_code, generate_web_tests
 from .planner import plan_tests
 
@@ -11,4 +12,5 @@ __all__ = [
     "generate_multiple_tests",
     "analyze_test_results",
     "print_analysis",
+    "fix_tests",
 ]

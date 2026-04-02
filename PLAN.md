@@ -22,12 +22,12 @@ This plan covers the implementation of a Python-based AI-driven test automation 
 
 ---
 
-## Phase 2 – Fake Agents (No LLM Yet)
+## Phase 2 – Fake Agents (No LLM Yet) ✅ COMPLETE
 
 - [x] Implement Fake Planner (`agents/planner.py`) with `plan_tests(description, context)` returning hard-coded web test plan
 - [x] Implement Generator for Web tests (`agents/generator.py`) writing pytest-playwright files from plan
 - [x] Implement Critic (simple) (`agents/critic.py`) analyzing test run results and printing structured diagnosis
-- [ ] Implement Fixer (dummy) (`agents/fixer.py`) logging which files would be fixed
+- [x] Implement Fixer (dummy) (`agents/fixer.py`) logging which files would be fixed
 
 ---
 
