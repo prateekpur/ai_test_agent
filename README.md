@@ -1,28 +1,30 @@
 # AI Test Agent
 
-Python-based AI-driven test automation system for API, Web, and Mobile tests with agent orchestration.
+Python-based AI-driven test automation system for Web tests with agent orchestration.
 
 ## Project Vision
 
 This project aims to build an intelligent test automation platform that uses LLM agents to:
-- Generate test code from natural language descriptions
-- Execute tests across multiple platforms (API, Web, Mobile)
+- Generate web test code from natural language descriptions
+- Execute pytest-playwright tests for web applications
 - Analyze failures and automatically fix issues
 - Orchestrate complex testing workflows
 
 See [PLAN.md](PLAN.md) for the complete roadmap.
 
-## Current Status: Test Generator (Phase 3 - Partial)
+## Current Status: Phase 2 Complete, Phase 3 Partial
 
-✅ **Available Now**: CLI tool to generate pytest tests from text descriptions using LLM
+✅ **Phase 0-2 Complete**: Full fake agent pipeline (Planner → Generator → Runner → Critic → Fixer)
+✅ **Phase 3 Partial**: LLM-powered test generator CLI available
 
 ### Features
 
 - 🤖 LLM-powered test generation from natural language descriptions
 - 📝 Support for multiple test descriptions in a single file
 - 🔧 GitHub Copilot API and OpenAI API compatible
-- ✅ Generates clean, runnable pytest code
+- ✅ Generates clean, runnable pytest-playwright code
 - 🎯 CLI tool for easy integration into workflows
+- 🔄 Fake agent orchestration pipeline for validation
 
 ---
 
@@ -85,15 +87,17 @@ Configuration is in `pyproject.toml`.
 Create a text file with your test descriptions:
 
 ```
-## user login validation
+## user login flow
 
-Test that user login works correctly with valid credentials.
-Should reject invalid usernames and passwords.
+Test that users can successfully log into the application.
+Navigate to the login page and enter valid credentials.
+Submit the form and verify successful authentication.
 
-## password strength checker
+## search functionality
 
-Test password strength validation function.
-Passwords must have at least 8 characters, one uppercase, one number.
+Test the search feature on the website.
+Enter a search query in the search box.
+Submit the search and verify results are displayed.
 ```
 
 ### Generate Tests
@@ -118,17 +122,28 @@ python -m src.test_generator.cli -i descriptions.txt -o test_output.py
 ```
 ai_test_agent/
 ├── src/
-│   ├── test_generator/         # ✅ LLM test code generator (COMPLETED)
+│   ├── agents/                 # ✅ Agent orchestration (Phase 2 - COMPLETED)
+│   │   ├── planner.py          # Fake planner with 7 scenarios
+│   │   ├── generator.py        # Template-based test generator
+│   │   ├── critic.py           # Regex-based failure analyzer
+│   │   └── fixer.py            # Log-based fix recommender
+│   ├── runners/                # ✅ Test execution (Phase 1 - COMPLETED)
+│   │   ├── web_runner.py       # pytest-playwright runner
+│   │   └── config.py           # Configuration system
+│   ├── test_generator/         # ✅ LLM test generator (Phase 3 - PARTIAL)
 │   │   ├── cli.py              # CLI interface
 │   │   ├── llm_client.py       # LLM API client
 │   │   ├── parser.py           # Description file parser
 │   │   ├── generator.py        # Test code generator
 │   │   └── writer.py           # File writer
-│   ├── engine/                 # 🔜 Test execution engine (PLANNED)
-│   ├── pages/                  # 🔜 Page objects (PLANNED)
-│   └── tests/                  # 🔜 Generated tests (PLANNED)
+│   └── pages/                  # 🔜 Page objects (PLANNED - Phase 4)
 ├── examples/
-│   └── test_descriptions.txt   # Example input file
+│   ├── test_descriptions.txt   # Example input file
+│   ├── planner_example.py      # Phase 2 examples
+│   ├── generator_example.py
+│   ├── critic_example.py
+│   ├── fixer_example.py
+│   └── e2e_pipeline.py         # Full pipeline demo
 ├── PLAN.md                     # Full project roadmap
 ├── quickstart.py               # Quick start guide
 └── README.md                   # This file
@@ -160,11 +175,13 @@ The test generator supports two authentication methods:
 
 ## Roadmap
 
-- [x] **Phase 3 (Partial)**: LLM-based test generator with GitHub Copilot/OpenAI integration
-- [ ] **Phase 1**: Core test runners (API, Web, Mobile)
-- [ ] **Phase 2**: Agent orchestration (Planner, Critic, Fixer)
-- [ ] **Phase 3 (Complete)**: Full LLM integration with self-healing tests
-- [ ] **Phase 4-7**: Advanced features (Web UI, Mobile, RAG, Test Memory)
+- [x] **Phase 0**: Project bootstrap and dependencies
+- [x] **Phase 1**: Core web test runner infrastructure
+- [x] **Phase 2**: Fake agent orchestration (Planner, Generator, Critic, Fixer)
+- [ ] **Phase 3**: Real LLM integration (2/4 tasks complete)
+- [ ] **Phase 4**: Advanced web features (page objects, visual regression)
+- [ ] **Phase 5**: Workflow hardening (retry, reporting, parallel execution)
+- [ ] **Phase 6**: Stretch goals (RAG, test memory, accessibility testing)
 
 See [PLAN.md](PLAN.md) for detailed phase breakdown.
 
