@@ -15,43 +15,38 @@ def main():
 
     context = {"base_url": "https://www.saucedemo.com"}
     output_dir = "output/e2e_test"
-    
+
     test_descriptions = [
         "test user login flow",
         "test search functionality",
     ]
-    
+
     for i, description in enumerate(test_descriptions, 1):
         print(f"\n{'=' * 60}")
         print(f"Test Scenario {i}: {description}")
         print(f"{'=' * 60}\n")
-        
-        print(f"[1/4] Planning...")
+
+        print("[1/4] Planning...")
         plan = plan_tests(description, context)
         print(f"      ✓ Created plan: {plan['test_name']}")
         print(f"      ✓ Steps: {len(plan['steps'])}")
-        
-        print(f"\n[2/4] Generating test code...")
+
+        print("\n[2/4] Generating test code...")
         files = generate_web_tests(plan, output_dir)
         print(f"      ✓ Generated: {Path(files[0]).name}")
-        
-        print(f"\n[3/4] Running tests...")
-        result = run_web_tests(
-            test_dir=output_dir,
-            browser="chromium",
-            headed=False,
-            verbose=False
-        )
+
+        print("\n[3/4] Running tests...")
+        result = run_web_tests(test_dir=output_dir, browser="chromium", headed=False, verbose=False)
         print(f"      ✓ Executed (exit code: {result.return_code})")
-        
-        print(f"\n[4/4] Analyzing results with Critic...")
+
+        print("\n[4/4] Analyzing results with Critic...")
         analysis = analyze_test_results(result.stdout, result.stderr, result.return_code)
-        
+
         print()
         print_analysis(analysis)
-        
+
         Path(files[0]).unlink()
-    
+
     print(f"\n{'=' * 60}")
     print("✓ End-to-End Pipeline Complete")
     print(f"{'=' * 60}")

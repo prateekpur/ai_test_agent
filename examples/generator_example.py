@@ -17,12 +17,12 @@ def main():
     print("-" * 60)
     plan = plan_tests("test user login flow", context)
     print(f"Plan: {plan['test_name']} with {len(plan['steps'])} steps")
-    
+
     files = generate_web_tests(plan, output_dir)
     print(f"Generated: {files[0]}")
     print()
 
-    with open(files[0]) as f:
+    with Path(files[0]).open() as f:
         print("Generated code:")
         print(f.read())
     print()
@@ -30,21 +30,17 @@ def main():
     print("=" * 60)
     print("Example 2: Generate multiple tests in one file")
     print("-" * 60)
-    
-    descriptions = [
-        "test user login flow",
-        "test search functionality",
-        "test navigation menu"
-    ]
-    
+
+    descriptions = ["test user login flow", "test search functionality", "test navigation menu"]
+
     plans = [plan_tests(desc, context) for desc in descriptions]
     print(f"Created {len(plans)} test plans")
-    
+
     files = generate_multiple_tests(plans, output_dir)
     print(f"Generated: {files[0]}")
     print()
-    
-    with open(files[0]) as f:
+
+    with Path(files[0]).open() as f:
         content = f.read()
         print(f"Generated code ({len(content)} chars, {content.count('def test_')} tests):")
         print(content[:500] + "..." if len(content) > 500 else content)

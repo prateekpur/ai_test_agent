@@ -1,7 +1,6 @@
 import re
 from typing import Any, Dict, List
 
-
 FAILURE_PATTERNS = {
     "timeout": [
         r"Timeout \d+ms exceeded",
@@ -55,21 +54,21 @@ FIX_SUGGESTIONS = {
 
 def analyze_test_results(stdout: str, stderr: str, return_code: int) -> Dict[str, Any]:
     combined_output = stdout + "\n" + stderr
-    
+
     passed = _extract_passed_count(stdout)
     failed = _extract_failed_count(stdout)
     total = passed + failed
-    
+
     failed_tests = _extract_failed_tests(stdout)
-    
+
     failure_type = _classify_failure(combined_output)
-    
+
     diagnosis = _generate_diagnosis(failure_type, failed_tests, combined_output)
-    
+
     suggested_fix = FIX_SUGGESTIONS.get(failure_type, FIX_SUGGESTIONS["unknown"])
-    
+
     status = "passed" if return_code == 0 else ("failed" if failed > 0 else "error")
-    
+
     return {
         "status": status,
         "return_code": return_code,
@@ -95,33 +94,35 @@ def _extract_failed_count(output: str) -> int:
 
 def _extract_failed_tests(output: str) -> List[Dict[str, Any]]:
     failed_tests = []
-    
+
     for match in re.finditer(r"FAILED (.*?)::(.*?)(?:\s|$)", output):
         file_path = match.group(1)
         test_name = match.group(2)
-        
+
         error = _extract_error_for_test(output, test_name)
         line_number = _extract_line_number(output, test_name)
-        
-        failed_tests.append({
-            "file": file_path,
-            "name": test_name,
-            "error": error,
-            "line": line_number,
-        })
-    
+
+        failed_tests.append(
+            {
+                "file": file_path,
+                "name": test_name,
+                "error": error,
+                "line": line_number,
+            }
+        )
+
     return failed_tests
 
 
 def _extract_error_for_test(output: str, test_name: str) -> str:
     pattern = rf"{test_name}.*?E\s+(.*?)(?:\n\n|\ntest_|\Z)"
     match = re.search(pattern, output, re.DOTALL)
-    
+
     if match:
         error_text = match.group(1).strip()
         error_lines = [line.strip() for line in error_text.split("\n") if line.strip()]
         return " ".join(error_lines[:3])
-    
+
     return "Unknown error"
 
 
@@ -136,21 +137,19 @@ def _classify_failure(output: str) -> str:
         for pattern in patterns:
             if re.search(pattern, output, re.IGNORECASE):
                 return failure_type
-    
+
     return "unknown"
 
 
-def _generate_diagnosis(
-    failure_type: str, failed_tests: List[Dict[str, Any]], output: str
-) -> str:
+def _generate_diagnosis(failure_type: str, failed_tests: List[Dict[str, Any]], output: str) -> str:
     if not failed_tests:
         return "All tests passed successfully"
-    
+
     test_count = len(failed_tests)
     test_names = ", ".join([t["name"] for t in failed_tests[:3]])
     if test_count > 3:
         test_names += f" and {test_count - 3} more"
-    
+
     diagnoses = {
         "timeout": f"Test(s) timed out: {test_names}. Element(s) not found or action took too long.",
         "locator_not_found": f"Selector(s) not found in {test_names}. Element may not exist or selector is incorrect.",
@@ -160,7 +159,7 @@ def _generate_diagnosis(
         "playwright_error": f"Playwright API error in {test_names}. Browser/context may be closed.",
         "unknown": f"Unknown error in {test_names}. Review detailed output for more information.",
     }
-    
+
     return diagnoses.get(failure_type, diagnoses["unknown"])
 
 
@@ -174,7 +173,7 @@ def print_analysis(analysis: Dict[str, Any]) -> None:
     print(f"Passed: {analysis['passed']}")
     print(f"Failed: {analysis['failed']}")
     print()
-    
+
     if analysis["failed"] > 0:
         print(f"Failure Type: {analysis['failure_type']}")
         print()
@@ -186,7 +185,7 @@ def print_analysis(analysis: Dict[str, Any]) -> None:
                 print(f"    Line: {test['line']}")
             print(f"    Error: {test['error']}")
             print()
-        
+
         print("Diagnosis:")
         print(f"  {analysis['diagnosis']}")
         print()
@@ -194,5 +193,5 @@ def print_analysis(analysis: Dict[str, Any]) -> None:
         print(f"  {analysis['suggested_fix']}")
     else:
         print("All tests passed successfully!")
-    
+
     print("=" * 60)

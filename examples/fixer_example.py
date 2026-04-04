@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from src.agents.critic import analyze_test_results
 from src.agents.fixer import fix_tests
 from src.agents.generator import generate_web_tests
@@ -15,7 +13,7 @@ def main():
 
     context = {"base_url": "https://www.saucedemo.com"}
     output_dir = "output/fixer_test"
-    
+
     print("Step 1: Create test plan")
     print("-" * 60)
     plan = plan_tests("test user login flow", context)
