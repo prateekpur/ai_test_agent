@@ -93,7 +93,7 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Search functionality
-    elif "search" in desc_lower:
+    if "search" in desc_lower:
         return {
             "test_name": "test_search_functionality",
             "description": description,
@@ -130,7 +130,7 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Checkout/purchase flow
-    elif "checkout" in desc_lower or "purchase" in desc_lower or "cart" in desc_lower:
+    if "checkout" in desc_lower or "purchase" in desc_lower or "cart" in desc_lower:
         return {
             "test_name": "test_checkout_process",
             "description": description,
@@ -172,7 +172,7 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Form submission
-    elif "form" in desc_lower or "submit" in desc_lower or "contact" in desc_lower:
+    if "form" in desc_lower or "submit" in desc_lower or "contact" in desc_lower:
         return {
             "test_name": "test_form_submission",
             "description": description,
@@ -215,7 +215,7 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Registration/signup
-    elif "register" in desc_lower or "signup" in desc_lower or "sign up" in desc_lower:
+    if "register" in desc_lower or "signup" in desc_lower or "sign up" in desc_lower:
         return {
             "test_name": "test_user_registration",
             "description": description,
@@ -264,7 +264,7 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Navigation test
-    elif "navigation" in desc_lower or "menu" in desc_lower:
+    if "navigation" in desc_lower or "menu" in desc_lower:
         return {
             "test_name": "test_navigation",
             "description": description,
@@ -300,30 +300,29 @@ def plan_tests(description: str, context: Dict[str, Any]) -> Dict[str, Any]:
         }
 
     # Default generic test plan
-    else:
-        return {
-            "test_name": "test_generic_flow",
-            "description": description,
-            "steps": [
-                {
-                    "action": "navigate",
-                    "url": base_url,
-                    "description": "Navigate to home page",
-                },
-                {
-                    "action": "assert_visible",
-                    "selector": "body",
-                    "description": "Verify page loaded successfully",
-                },
-                {
-                    "action": "assert_text",
-                    "selector": "h1, .page-title",
-                    "contains": "",
-                    "description": "Verify page has a heading",
-                },
-            ],
-            "setup": setup,
-        }
+    return {
+        "test_name": "test_generic_flow",
+        "description": description,
+        "steps": [
+            {
+                "action": "navigate",
+                "url": base_url,
+                "description": "Navigate to home page",
+            },
+            {
+                "action": "assert_visible",
+                "selector": "body",
+                "description": "Verify page loaded successfully",
+            },
+            {
+                "action": "assert_text",
+                "selector": "h1, .page-title",
+                "contains": "",
+                "description": "Verify page has a heading",
+            },
+        ],
+        "setup": setup,
+    }
 
 
 def get_supported_scenarios() -> List[str]:

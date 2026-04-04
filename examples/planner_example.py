@@ -1,6 +1,6 @@
 """Example usage of Phase 2 Fake Planner."""
 
-from src.agents.planner import plan_tests, get_supported_scenarios
+from src.agents.planner import get_supported_scenarios, plan_tests
 
 
 def main():

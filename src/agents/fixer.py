@@ -1,6 +1,5 @@
 from typing import Any, Dict, List
 
-
 FIX_STRATEGIES = {
     "timeout": {
         "title": "Timeout Issues",
@@ -170,21 +169,21 @@ def fix_tests(diagnosis: Dict[str, Any], test_files: List[str]) -> None:
     print("Fixer Recommendations")
     print("=" * 60)
     print(f"Status: {diagnosis['status'].upper()}")
-    
+
     if diagnosis["status"] == "passed":
         print("\n✓ All tests passed - no fixes needed")
         print("=" * 60)
         return
-    
+
     failure_type = diagnosis.get("failure_type", "unknown")
     failed_tests = diagnosis.get("failed_tests", [])
-    
+
     print(f"Failure Type: {failure_type}")
     print(f"Failed Tests: {len(failed_tests)}")
     print()
-    
+
     strategies_info = _get_fix_strategies(failure_type)
-    
+
     for test in failed_tests:
         print("=" * 60)
         print(f"Test: {test['file']}::{test['name']}", end="")
@@ -195,31 +194,33 @@ def fix_tests(diagnosis: Dict[str, Any], test_files: List[str]) -> None:
         print(f"Error: {test['error'][:80]}...")
         print("=" * 60)
         print()
-        
+
         print(f"Fix Strategies for {strategies_info['title']}:")
         print()
-        
+
         for i, strategy in enumerate(strategies_info["strategies"], 1):
             _print_strategy(strategy, i)
-        
+
         print("\nGeneral Tips:")
         for tip in strategies_info["general_tips"]:
             print(f"  • {tip}")
-        
+
         print()
         print("=" * 60)
         print()
-    
+
     print("Would fix files:")
-    unique_files = set(test["file"] for test in failed_tests)
+    unique_files = {test["file"] for test in failed_tests}
     for filepath in unique_files:
         test_count = sum(1 for t in failed_tests if t["file"] == filepath)
         print(f"  ✓ {filepath} ({test_count} test(s))")
-    
+
     print()
     print("Summary:")
     print(f"  • {len(failed_tests)} test(s) would be analyzed")
-    print(f"  • {len(strategies_info['strategies'])} fix strateg{'ies' if len(strategies_info['strategies']) > 1 else 'y'} available")
+    print(
+        f"  • {len(strategies_info['strategies'])} fix strateg{'ies' if len(strategies_info['strategies']) > 1 else 'y'} available"
+    )
     print("  • No files were actually modified (Phase 2 dummy mode)")
     print()
     print("=" * 60)
@@ -232,13 +233,13 @@ def _get_fix_strategies(failure_type: str) -> Dict[str, Any]:
 def _print_strategy(strategy: Dict[str, str], index: int) -> None:
     print(f"Strategy {index}: {strategy['description']} (Priority: {strategy['priority']})")
     print("─" * 60)
-    
+
     print("\n  Before:")
     for line in strategy["before"].split("\n"):
         print(f"    {line}")
-    
+
     print("\n  After:")
     for line in strategy["after"].split("\n"):
         print(f"    {line}")
-    
+
     print()
