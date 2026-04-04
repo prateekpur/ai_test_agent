@@ -1,0 +1,48 @@
+## user login flow
+
+Test that users can successfully log into the application.
+Navigate to the login page and enter valid credentials.
+Submit the form and verify successful authentication.
+Check that user dashboard or profile is visible after login.
+
+## search functionality
+
+Test the search feature on the website.
+Enter a search query in the search box.
+Submit the search and verify results are displayed.
+Check that search results contain relevant items.
+
+## checkout process
+
+Test the e-commerce checkout flow.
+Add items to the shopping cart.
+Proceed to checkout and fill in shipping information.
+Complete payment and verify order confirmation.
+
+## form submission
+
+Test form validation and submission.
+Fill in all required form fields with valid data.
+Submit the form and verify success message.
+Test that validation errors appear for invalid inputs.
+
+## user registration
+
+Test new user registration process.
+Navigate to registration page and fill in user details.
+Submit registration form with valid information.
+Verify account creation success and redirect to dashboard.
+
+## navigation and menu
+
+Test website navigation and menu functionality.
+Click through different menu items and verify page loads.
+Test breadcrumb navigation and back button.
+Verify all navigation links work correctly.
+
+## product details page
+
+Test product page displays correct information.
+Navigate to a product detail page.
+Verify product images, description, and price are visible.
+Test add to cart button functionality.

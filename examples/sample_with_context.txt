@@ -1,0 +1,9 @@
+## user sign-in
+
+Test the login feature.
+Test page - https://www.saucedemo.com/cart.html
+
+Test cases:
+- User with Valid email and password should be able to sign in
+- User with Invalid email format should not be able to sign in
+
