@@ -1,7 +1,10 @@
 ## user sign-in
 
 Test the login feature.
-Test page - https://www.saucedemo.com/cart.html
+Test page - https://www.saucedemo.com
+
+Valid mail and password - standard_user/secret_sauce
+Invalid mail and password - locked_out_user/secret_sauce
 
 Test cases:
 - User with Valid email and password should be able to sign in

@@ -1,3 +1,5 @@
+Base url for all these tests - https://www.saucedemo.com/
+
 ## user login flow
 
 Test that users can successfully log into the application.
